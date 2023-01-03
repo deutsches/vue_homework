@@ -2,19 +2,12 @@ const token = document.cookie.replace(
     /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
     "$1"
   );
-const orderWrap = document.querySelector(".orderWrap");
-let orderList = [];
-
-// 產品資料格式
-
-products: [];
 
 const app = Vue.createApp({
   data() {
     return {
       url: "https://vue3-course-api.hexschool.io",
       api_path: "uaena",
-      text: "123",
       // 產品列表
       products: [],
       product: {},
@@ -35,8 +28,6 @@ const app = Vue.createApp({
           console.log(res);
 
           this.products = res.data.products;
-          // this.render();
-          // this.pagination = res.data.pagination;
         }
         
       }).catch((err)=>{
