@@ -1,0 +1,66 @@
+body{
+    background-image: url('../bg-01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+label{
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    padding-left: 7px;
+}
+
+.main{
+    box-sizing: border-box;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 10px;
+  
+}
+.main>div{
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 55px;
+}
+.title{
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 39px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    padding-bottom: 49px;
+}
+.input{
+    font-family: Poppins-Medium;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 55px;
+    background: 0 0;
+    padding: 0 7px 0 43px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #d9d9d9;
+}
+.btnLogin{
+    font-family: Poppins-Medium;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+}
