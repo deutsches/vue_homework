@@ -24,7 +24,7 @@ function login() {
           expired
         )}; path=/`;
         console.log(window);
-        //window.location.href ='ProductList.html';
+        window.location.href ='ProductList.html';
       }
     });
     
