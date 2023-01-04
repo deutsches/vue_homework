@@ -29,13 +29,13 @@
                     <th width="120">查看細節</th>
                   </tr>
                 </thead>
-                <tbody v-for="item in products" :key="item.id">
-                  <tr>
+                <tbody >
+                  <tr v-for="item in products" :key="item.id">
                     <td width="150">{{item.title }}</td>
                     <td width="120">{{ item.origin_price}}</td>
                     <td width="120">{{item.price}}</td>
                     <td width="150">
-                      <span class="text-success" v-if="item.is_enabled==1?true:false">啟用</span>
+                      <span class="text-success" v-if="item.is_enabled">啟用</span>
                       <span v-else>未啟用</span>
                     </td>
                     <td width="120">
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6">
               <h2>單一產品細節</h2>
-              <template v-if="Object.keys(product).length===0?false:true">
+              <template v-if="product.title">
                 <div class="card mb-3">
                   <img :src="product.imageUrl" class="card-img-top primary-image" alt="主圖" />
                   <div class="card-body">
@@ -61,13 +61,12 @@
                     <p class="card-text">商品描述：{{product.description }}</p>
                     <p class="card-text">商品內容：{{product.content }}</p>
                     <div class="d-flex">
-                      <p class="card-text me-2">{{ }}</p>
                       <p class="card-text text-secondary"><del>{{product.origin_price }}</del></p>
                       &nbsp;{{product.price }}&nbsp;{{product.unit}} / 元
                     </div>
                   </div>
                 </div>
-                <template v-for="image in product.imagesUrl">
+                <template v-for="image in product.imagesUrl" :key="image.url">
                   <img :src="image" alt="" class="images m-2" />
                 </template>
               </template>
