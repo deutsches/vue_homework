@@ -49,7 +49,7 @@
       crossorigin='anonymous'></script>
   </head>
   <body>
-    <div class="limiter">
+    <div class="limiter" id="app">
       <div
         class="container-login100"
         style="background-image: url('bg-01.jpg')"
@@ -61,12 +61,14 @@
               class="wrap-input100 validate-input m-b-23"
               data-validate="Username is reauired"
             >
-              <span class="label-input100">Username</span>
+              <span class="label-input100">Email</span>
               <input
                 class="input100"
                 type="email"
                 name="username"
-                placeholder="Type your username" id="userName"
+                placeholder="Type your Email" id="userName"
+                v-model="username"
+                required
               />
               <span class="focus-input100" data-symbol="&#xf206;"></span>
             </div>
@@ -80,6 +82,7 @@
                 type="password"
                 name="pass"
                 placeholder="Type your password" id="password"
+                v-model="password"
               />
               <span class="focus-input100" data-symbol="&#xf190;"></span>
             </div>
@@ -89,7 +92,7 @@
             <div class="container-login100-form-btn">
               <div class="wrap-login100-form-btn">
                 <div class="login100-form-bgbtn"></div>
-                <button type="button" class="login100-form-btn" id="loginBtn">Login</button>
+                <button type="button" class="login100-form-btn" id="loginBtn" @click="login">Login</button>
               </div>
             </div>
             <div class="txt1 text-center p-t-54 p-b-20">
@@ -122,14 +125,7 @@
   <script src="https://colorlib.com/etc/lf/Login_v4/vendor/bootstrap/js/popper.js"></script>
   <script src="https://colorlib.com/etc/lf/Login_v4/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <!-- <script src="vendor/select2/select2.min.js"></script>
-
-  <script src="vendor/daterangepicker/moment.min.js"></script>
-  <script src="vendor/daterangepicker/daterangepicker.js"></script>
-
-  <script src="vendor/countdowntime/countdowntime.js"></script>
-
-  <script src="js/main.js"></script> -->
+  <script src="https://unpkg.com/vue@next"></script>
   <script src="https://colorlib.com/etc/lf/Login_v4/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="js/login.js"></script>
 </html>

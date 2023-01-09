@@ -1,7 +1,4 @@
-const token = document.cookie.replace(
-    /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-    "$1"
-  );
+
 
 const app = Vue.createApp({
   data() {
@@ -14,30 +11,42 @@ const app = Vue.createApp({
     };
   },
   methods: {
+    checkAdmin(){
+      axios.post(`${this.url}/api/user/check`)
+      .then(() => {
+        this.getData();
+      })
+      .catch((err) => {
+        alert(err.response.data.message)
+        window.location = 'login.html';
+      })
+    },
     viewProduct(item) {
       this.product = item;
     },
     getData() {
        
-      axios.get(`${this.url}/v2/api/${this.api_path}/admin/products/all`, {
-        headers: {
-          Authorization: token,
-        },
-      }).then((res) => {
+      axios.get(`${this.url}/v2/api/${this.api_path}/admin/products/all`)
+      .then((res) => {
         if (res.data.success) {
-          console.log(res);
-
           this.products = res.data.products;
         }
         
       }).catch((err)=>{
-        console.log(err);
+
       });
     },
   },
   mounted() {
-    this.getData();
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    //axios設定header
+    axios.defaults.headers.common.Authorization = token;
+    this.checkAdmin();
   },
+  
 });
 
 app.mount("#app");
