@@ -25,7 +25,7 @@ const app = Vue.createApp({
             document.cookie = `hexToken=${token};expires=${new Date(
               expired
             )}; path=/`;
-            window.location.href = "ProductList.html";
+            window.location.href = "product.html";
           }
         }).catch((error)=>{
           alert(error.response.data.message);

@@ -45,6 +45,7 @@ const app = Vue.createApp({
     //axios設定header
     axios.defaults.headers.common.Authorization = token;
     this.checkAdmin();
+  
   },
   
 });
