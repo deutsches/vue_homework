@@ -91,7 +91,6 @@ app.component("product-modal", {
   },
   methods:{
     createImages() {
-      console.log(this.product);
       if(!this.product.imagesUrl ){
         this.product.imagesUrl = [];
         this.product.imagesUrl.push('');
@@ -109,15 +108,18 @@ app.component("product-modal", {
         url = `${this.api_url}/api/${this.api_path}/admin/product/${this.product.id}`;
         http = "put";
       }
-      console.log(this.product);
       axios[http](url, { data: this.product })
         .then((response) => {
-          alert(response.data.message);
-          this.productModal.hide();
-          this.$emit('saveProduct');
+          if(response.data.success){
+            this.$emit('saveProduct');
+            this.productModal.hide();
+          }
+          else{
+            alert(response.data.message);
+          }
         })
         .catch((err) => {
-          alert(err.data);
+          alert(err.data.message);
         });
      
     },
