@@ -91,7 +91,8 @@ app.component("product-modal", {
   },
   methods:{
     createImages() {
-      if(this.product.imagesUrl.length<1){
+      console.log(this.product);
+      if(!this.product.imagesUrl ){
         this.product.imagesUrl = [];
         this.product.imagesUrl.push('');
       }else{

@@ -88,20 +88,14 @@
           ></pagination>
 
           <!-- Modal -->
-          <div
-            id="productModal"
-            class="modal fade"
-            tabindex="-1"
-            aria-labelledby="productModalLabel"
-            aria-hidden="true"
-          >
+       
             <product-modal
               :product="product"
               :is-new="isNew"
               @save-product="getData"
               ref="productModal"
             ></product-modal>
-          </div>
+          
 
           <!-- 刪除Modal -->
           <delete-modal :product="product" @save-product="getData" ref="deleteProductModal"></delete-modal>
@@ -119,7 +113,13 @@
   <script src="./js/productlist.js" type="module"></script>
   <!-- modal元件 -->
   <script type="text/x-template" id="product-modal-template">
-
+    <div
+    id="productModal"
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="productModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-xl">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
@@ -342,5 +342,6 @@
         </div>
       </div>
     </div>
+  </div>
   </script>
 </html>
