@@ -1,5 +1,8 @@
-let deleteProductModal = null;
-let productModal = null;
+//let deleteProductModal = null;
+//let productModal = null;
+
+import pagination from "./pagination.js";
+import deleteModal from "./deleteModal.js";
 
 const app = Vue.createApp({
   data() {
@@ -10,9 +13,9 @@ const app = Vue.createApp({
       products: [],
       product: {
         imagesUrl: [],
-
       },
       isNew: false,
+      page:{},
     };
   },
   methods: {
@@ -20,71 +23,46 @@ const app = Vue.createApp({
       axios
         .post(`${this.api_url}/api/user/check`)
         .then((res) => {
-          if(!res.data.success){
+          if (!res.data.success) {
             window.location = "login.html";
           }
           this.getData();
         })
         .catch((err) => {
-          alert(err.data.message);
+          alert(err.data);
           window.location = "login.html";
         });
     },
-    getData() {
+    getData(page=1) {
       axios
-        .get(`${this.api_url}/v2/api/${this.api_path}/admin/products/all`)
+        .get(`${this.api_url}/v2/api/${this.api_path}/admin/products/?page=${page}`)
         .then((res) => {
           if (res.data.success) {
             this.products = res.data.products;
+            this.page = res.data.pagination;
           }
         })
         .catch((err) => {
-            alert(err.data.message);
+          alert(err.data.message);
         });
     },
     openModal(isNew, item) {
       if (isNew == "delete") {
         this.product = { ...item };
-        deleteProductModal.show();
+        this.$refs.deleteProductModal.openModal();
       } else if (isNew == "edit") {
         this.isNew = false;
         this.product = { ...item };
-        productModal.show();
-      } else if(isNew == "new"){
+        this.$refs.productModal.openModal();
+      } else if (isNew == "new") {
         this.isNew = true;
         this.product = {
-            imagesUrl: [],
-          };
-        productModal.show();
+          imagesUrl: [],
+        };
+        this.$refs.productModal.openModal();
       }
     },
-    saveProduct(){
-        let url = `${this.api_url}/api/${this.api_path}/admin/product`;
-        let http = 'post';
-        if(!this.isNew){
-            url = `${this.api_url}/api/${this.api_path}/admin/product/${this.product.id}`;
-            http = 'put'
-        }
-        axios[http](url, { data: this.product }).then((response) => {
-            alert(response.data.message);
-            productModal.hide();
-            this.getData();
-          }).catch((err) => {
-            alert(err.response.data.message);
-          });
-        this.isNew = false;
-    },
-    deleteProduct(){
-        const url = `${this.api_url}/api/${this.api_path}/admin/product/${this.product.id}`;
-        axios.delete(url).then((response) => {
-            alert(response.data.message);
-            deleteProductModal.hide();
-            this.getData();
-          }).catch((err) => {
-            alert(err.response.data.message);
-          })
-    }
-
+   
   },
   mounted() {
     const token = document.cookie.replace(
@@ -94,17 +72,64 @@ const app = Vue.createApp({
     //axios設定header
     axios.defaults.headers.common.Authorization = token;
     this.checkAdmin();
-    productModal = new bootstrap.Modal(document.getElementById('productModal'), {
-       keyboard: false
+  },
+  components: {
+    pagination,deleteModal
+  },
+});
+
+// MODAL元件
+app.component("product-modal", {
+  props:["product",'isNew'],
+  template: `#product-modal-template`,
+  data(){
+    return{
+      api_url: "https://vue3-course-api.hexschool.io",
+      api_path: "uaena",
+      productModal:null,
+    }
+  },
+  methods:{
+    createImages() {
+      if(this.product.imagesUrl.length<1){
+        this.product.imagesUrl = [];
+        this.product.imagesUrl.push('');
+      }else{
+        this.product.imagesUrl.push('');
+      }
+    },
+    openModal(){
+      this.productModal.show();
+    },
+    saveProduct() {
+      let url = `${this.api_url}/api/${this.api_path}/admin/product`;
+      let http = "post";
+      if (!this.isNew) {
+        url = `${this.api_url}/api/${this.api_path}/admin/product/${this.product.id}`;
+        http = "put";
+      }
+      console.log(this.product);
+      axios[http](url, { data: this.product })
+        .then((response) => {
+          alert(response.data.message);
+          this.productModal.hide();
+          this.$emit('saveProduct');
+        })
+        .catch((err) => {
+          alert(err.data);
+        });
+     
+    },
+
+  },
+  mounted(){
+    this.productModal = new bootstrap.Modal(document.getElementById('productModal'), {
+      keyboard: false,
+      //backdrop: 'static'
     });
 
-    deleteProductModal = new bootstrap.Modal(
-      document.getElementById("deleteProductModal"),
-      {
-        keyboard: false,
-      }
-    );
-  },
+
+  }
 });
 
 app.mount("#app");
