@@ -10,7 +10,24 @@ img {
   .images {
     height: 150px;
   }
-  .card-img{
+  .card-img-top{
     height: 300px;
     object-fit: cover;
   }
+  .viewProduct{
+    color: azure;
+    display: block;
+   
+    background-color: blueviolet;
+    transition: all .35s ease;
+    top: 300px;
+  }
+  .card:hover .viewProduct{
+    top: 259px;
+    display: block;
+    
+  }
+  .card-body .btn:hover{
+    color: blue;
+  }
+  

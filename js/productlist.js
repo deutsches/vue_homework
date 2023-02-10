@@ -1,8 +1,8 @@
 //let deleteProductModal = null;
 //let productModal = null;
 
-import pagination from "./pagination.js";
-import deleteModal from "./deleteModal.js";
+import pagination from "../component/pagination.js";
+import deleteModal from "../component/deleteModal.js";
 
 const app = Vue.createApp({
   data() {
